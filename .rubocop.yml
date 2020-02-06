@@ -1,0 +1,210 @@
+inherit_from: .rubocop_todo.yml
+
+require: rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - 'lib/tasks/**/*'
+    - 'node_modules/**/*'
+  TargetRubyVersion: 2.6
+
+Lint/AssignmentInCondition:
+  Enabled: true
+  AllowSafeAssignment: true
+
+Layout/BlockAlignment:
+  Enabled: true
+
+Layout/EndAlignment:
+  Enabled: true
+
+Lint/UselessAssignment:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: true
+  Max: 150
+  Exclude:
+    - app/helpers/application_helper.rb
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/Delegate:
+  Enabled: true
+
+Rails/FindBy:
+  Enabled: true
+
+Rails/FindEach:
+  Enabled: true
+
+Rails/Output:
+  Enabled: false
+
+Rails/ScopeArgs:
+  Enabled: true
+
+Rails/ApplicationController:
+  Enabled: false
+
+Rails/TimeZone:
+  Enabled: false
+
+Rails/UniqBeforePluck:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Rails/DynamicFindBy:
+  Enabled: false
+
+Layout/ArrayAlignment:
+  Enabled: true
+
+Layout/HashAlignment:
+  Enabled: true
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'
+
+Style/BracesAroundHashParameters:
+  Enabled: true
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DateTime:
+  Enabled: false
+
+Layout/DotPosition:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: true
+
+Layout/IndentationWidth:
+  Enabled: true
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/LineEndConcatenation:
+  Enabled: true
+
+Style/MultilineBlockChain:
+  Enabled: true
+
+Style/NegatedIf:
+  Enabled: false
+
+Layout/SpaceAfterColon:
+  Enabled: true
+
+Layout/SpaceAroundOperators:
+  Enabled: true
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+
+Layout/SpaceBeforeComma:
+  Enabled: true
+
+Layout/SpaceBeforeSemicolon:
+  Enabled: true
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: true
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: true
+
+Layout/SpaceInsideReferenceBrackets:
+  Enabled: true
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+
+Layout/SpaceInsideParens:
+  Enabled: true
+
+Style/StringLiterals:
+  Enabled: true
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/SymbolProc:
+  Enabled: true
+
+Layout/TrailingEmptyLines:
+  Enabled: true
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+Style/WordArray:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Rails/HttpPositionalArguments:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - acceptance
+    - development
+    - integration
+    - production
+    - test
+
+Style/NumericLiterals:
+  Enabled: false
