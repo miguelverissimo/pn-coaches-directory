@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.7.0'
 
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
@@ -18,6 +18,10 @@ end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-chruby'
+  gem 'capistrano-puma', require: false
 end
 
 group :test do
