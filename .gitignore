@@ -23,3 +23,7 @@
 
 # Ignore files needed for development only / private / etc.
 /untracked/*
+
+/config/credentials/production.key
+config/database.yml
+config/secrets.yml
