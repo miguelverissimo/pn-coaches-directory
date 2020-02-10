@@ -27,3 +27,5 @@
 /config/credentials/production.key
 config/database.yml
 config/secrets.yml
+
+.envrc

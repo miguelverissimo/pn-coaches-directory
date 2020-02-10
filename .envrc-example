@@ -1,0 +1,4 @@
+# use direnv and copy this example to .envrc
+
+# export STAGING_IP=
+# export PRODUCTION_IP=
