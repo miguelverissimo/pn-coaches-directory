@@ -48,10 +48,15 @@ class Coach < ApplicationRecord
       level_2: :level2_status,
       pro_coach: :procoach_status,
       show_in_directory: :show_in_directory,
-      url_last_status: :url_last_status
     }.each  do |method_name, column|
       define_boolean_aliases(method_name, column)
     end
+  end
+
+  def full_address
+    [address_1, address_2, city, "#{province} #{postal_code}", country]
+      .reject(&:empty?)
+      .join(', ')
   end
 
   private
