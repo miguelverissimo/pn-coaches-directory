@@ -53,6 +53,14 @@ class Coach < ApplicationRecord
     end
   end
 
+  scope :filter_by_country, -> (country) { where country: country }
+  scope :filter_by_city, -> (city) { where city: city }
+  scope :filter_by_postal_code, -> (postal_code) { where postal_code: postal_code }
+  scope :filter_by_name_starts_with, -> (name) {
+    coaches = self.arel_table
+    self.where(coaches[:fullname].matches("#{name}%"))
+  }
+
   def full_address
     [address_1, address_2, city, "#{province} #{postal_code}", country]
       .reject(&:empty?)
