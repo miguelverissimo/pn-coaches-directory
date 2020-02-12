@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   resources :test, only: [:index], defaults: { format: :json }
   root 'test#index'
 
-  namespace :api do
-    namespace :v1, format: :json do
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
       resources :coach_directory, only: [:index], controller: :coach_directory
     end
   end
