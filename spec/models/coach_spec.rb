@@ -59,7 +59,6 @@ RSpec.describe Coach, type: :model do
         expected = 'address 1, city, province 123456, country'
 
         expect(coach.full_address).to eq(expected)
-
       end
     end
   end
