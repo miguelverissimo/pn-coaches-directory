@@ -10,7 +10,7 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     full_name { FFaker::Name.name }
     level_1 { [true, false].sample }
-    level_2 { level_1 && ([true, false].sample) }
+    level_2 { level_1 && [true, false].sample }
     mobile_phone { FFaker::PhoneNumber.short_phone_number }
     postal_code { FFaker::AddressUS.zip_code }
     procoach_status { [true, false].sample }

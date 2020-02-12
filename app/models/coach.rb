@@ -47,19 +47,16 @@ class Coach < ApplicationRecord
       level_1: :level1_status,
       level_2: :level2_status,
       pro_coach: :procoach_status,
-      show_in_directory: :show_in_directory,
-    }.each  do |method_name, column|
+      show_in_directory: :show_in_directory
+    }.each do |method_name, column|
       define_boolean_aliases(method_name, column)
     end
   end
 
-  scope :filter_by_country, -> (country) { where country: country }
-  scope :filter_by_city, -> (city) { where city: city }
-  scope :filter_by_postal_code, -> (postal_code) { where postal_code: postal_code }
-  scope :filter_by_name_starts_with, -> (name) {
-    coaches = self.arel_table
-    self.where(coaches[:fullname].matches("#{name}%"))
-  }
+  scope :filter_by_country, ->(country) { where country: country }
+  scope :filter_by_city, ->(city) { where city: city }
+  scope :filter_by_postal_code, ->(postal_code) { where postal_code: postal_code }
+  scope :filter_by_name_starts_with, ->(name) { where(arel_table[:fullname].matches("#{name}%")) }
 
   def full_address
     [address_1, address_2, city, "#{province} #{postal_code}", country]
@@ -72,11 +69,11 @@ class Coach < ApplicationRecord
   def define_boolean_aliases(method_name, column)
     (class << self; self; end).instance_eval do
       define_method method_name do
-        read_attribute(column) == 1
+        self[column] == 1
       end
 
       define_method "#{method_name}=" do |val|
-        write_attribute column, bool_to_int(val)
+        self[column] = bool_to_int(val)
       end
     end
   end
