@@ -9,6 +9,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma'
 gem 'rack-attack'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
+gem 'redis'
+gem 'hiredis'
 
 group :production do
   gem 'passenger', '>= 5.3.2', require: 'phusion_passenger/rack_handler'
