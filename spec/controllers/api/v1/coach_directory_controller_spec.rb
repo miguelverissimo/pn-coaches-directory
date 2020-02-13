@@ -30,6 +30,8 @@ RSpec.describe Api::V1::CoachDirectoryController, type: :controller do
   end
 
   describe '#index' do
+    before { Rails.cache.clear }
+
     def make_request(params = {})
       get :index, params: params.merge(format: :json)
     end
@@ -139,16 +141,23 @@ RSpec.describe Api::V1::CoachDirectoryController, type: :controller do
 
     context 'caching of data' do
       around { |example| with_caching { example.run } }
-      before { Rails.cache.clear }
 
       it 'caches the data for 5 minutes' do
-        Coach.should_receive(:where).once.and_return([])
-        make_request
-        make_request
+        subject.stub(:filtered_coaches)
+        make_request(country: 'Republic of Testing')
+        make_request(country: 'Republic of Testing')
+        make_request(country: 'Republic of Testing')
+        make_request(country: 'Republic of Testing')
+        expect(subject).to have_received(:filtered_coaches).once
       end
 
-      xit 'caches different queries into independent keys' do
-
+      it 'caches different queries into independent keys' do
+        subject.stub(:filtered_coaches)
+        make_request(country: 'Republic of Testing')
+        make_request(country: 'Other Country')
+        make_request(country: 'Republic of Testing')
+        make_request(country: 'Other Country')
+        expect(subject).to have_received(:filtered_coaches).twice
       end
     end
   end
