@@ -143,7 +143,7 @@ RSpec.describe Api::V1::CoachDirectoryController, type: :controller do
       around { |example| with_caching { example.run } }
 
       it 'caches the data for 5 minutes' do
-        subject.stub(:filtered_coaches)
+        allow(subject).to receive(:filtered_coaches)
         make_request(country: 'Republic of Testing')
         make_request(country: 'Republic of Testing')
         make_request(country: 'Republic of Testing')
@@ -152,7 +152,7 @@ RSpec.describe Api::V1::CoachDirectoryController, type: :controller do
       end
 
       it 'caches different queries into independent keys' do
-        subject.stub(:filtered_coaches)
+        allow(subject).to receive(:filtered_coaches)
         make_request(country: 'Republic of Testing')
         make_request(country: 'Other Country')
         make_request(country: 'Republic of Testing')
