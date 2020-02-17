@@ -36,6 +36,21 @@ RSpec.describe Api::V1::CoachDirectoryController, type: :controller do
       get :index, params: params.merge(format: :json)
     end
 
+    context 'json response' do
+      it 'formats the response as defined by the specs' do
+        FactoryBot.create(:coach, :johnny_coach)
+        expected = '[{"name":"Johnny Coach","certification_level":"Level 2",' \
+          '"business_name":"Johnny\'s Fitness","business_phone":"987 654-3210",' \
+          '"mobile_phone":"987 654-3210","email":"johnny@johnnysfitness.com",' \
+          '"level_1":true,"level_2":true,"url":"https://johnnysfitness.com",' \
+          '"tag_line":"Fast body recomposition","location":"1 First St., Unit 1, ' \
+          'The Capital, Main Province 1234-567, Republic of Johnnystan"}]'
+
+        make_request(country: 'Republic of Johnnystan')
+        expect(response.body).to eq(expected)
+      end
+    end
+
     context 'filtering coaches' do
       context 'when the request does not have any filters' do
         before do

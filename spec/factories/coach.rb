@@ -29,20 +29,28 @@ module CoachFactoryHelpers
     ].sample
   end
 
+  def name_class
+    @name_class ||= "FFaker::Name#{location[:name] || location[:default]}".constantize
+  end
+
   def name
-    @name ||= "FFaker::Name#{location[:name] || location[:default]}".constantize
+    name_class.name
   end
 
-  def phone
-    @phone ||= "FFaker::PhoneNumber#{location[:phone] || location[:default]}".constantize
+  def phone_class
+    @phone_class ||= "FFaker::PhoneNumber#{location[:phone] || location[:default]}".constantize
   end
 
-  def address
-    @address ||= "FFaker::Address#{location[:address] || location[:default]}".constantize
+  def phone_number
+    phone_class.phone_number
+  end
+
+  def address_class
+    @address_class ||= "FFaker::Address#{location[:address] || location[:default]}".constantize
   end
 
   def postal_code
-    address.respond_to?(:postal_code) ? address.postal_code : FFaker::AddressUS.zip_code
+    address_class.respond_to?(:postal_code) ? address_class.postal_code : FFaker::AddressUS.zip_code
   end
 
   def country
@@ -50,44 +58,44 @@ module CoachFactoryHelpers
   end
 
   def street_address
-    if address.respond_to? :street_address
-      address.street_address
-    elsif address.respond_to? :road_addess
-      address.road_addess
+    if address_class.respond_to? :street_address
+      address_class.street_address
+    elsif address_class.respond_to? :road_addess
+      address_class.road_addess
     else
       FFaker::Address.street_address
     end
   end
 
   def secondary_address
-    if address.respond_to? :secondary_address
-      address.secondary_address
-    elsif address.respond_to? :land_address
-      address.land_address
-    elsif address.respond_to? :secondary_number
-      address.secondary_number
-    elsif address.respond_to? :appartment_number
-      address.appartment_number
+    if address_class.respond_to? :secondary_address
+      address_class.secondary_address
+    elsif address_class.respond_to? :land_address
+      address_class.land_address
+    elsif address_class.respond_to? :secondary_number
+      address_class.secondary_number
+    elsif address_class.respond_to? :appartment_number
+      address_class.appartment_number
     else
       FFaker::Address.secondary_address
     end
   end
 
   def city
-    address.respond_to?(:city) ? address.city : address.municipality
+    address_class.respond_to?(:city) ? address_class.city : address_class.municipality
   end
 
   def province
-    if address.respond_to? :state
-      address.state
-    elsif address.respond_to? :county
-      address.county
-    elsif address.respond_to? :province
-      address.province
-    elsif address.respond_to? :region
-      address.region
-    elsif address.respond_to? :prefecture
-      address.prefecture
+    if address_class.respond_to? :state
+      address_class.state
+    elsif address_class.respond_to? :county
+      address_class.county
+    elsif address_class.respond_to? :province
+      address_class.province
+    elsif address_class.respond_to? :region
+      address_class.region
+    elsif address_class.respond_to? :prefecture
+      address_class.prefecture
     else
       FFaker::Address.neighborhood
     end
@@ -96,27 +104,51 @@ end
 
 FactoryBot.define do
   factory :coach do
-    address_1 { CoachFactoryHelpers.street_address }
-    address_2 { CoachFactoryHelpers.secondary_address }
-    city { CoachFactoryHelpers.city }
-    business_name { FFaker::Company.name }
-    business_phone { CoachFactoryHelpers.phone.phone_number }
-    country { CoachFactoryHelpers.country }
-    email { FFaker::Internet.email }
-    full_name { CoachFactoryHelpers.name }
-    level_1 { [true, false].sample }
-    level_2 { level_1 && [true, false].sample }
-    mobile_phone { CoachFactoryHelpers.phone.phone_number }
-    postal_code { CoachFactoryHelpers.postal_code }
-    procoach_status { [true, false].sample }
-    show_in_directory { [true, false].sample }
-    source { 'es' }
-    specialty { FFaker::Skill.specialty }
-    url { FFaker::Internet.http_url }
-    url_last_checked { FFaker::Time.between(2.weeks.ago, 1.minute.ago) }
-    url_last_status { [true, false].sample }
-    user_id { rand(99999) }
-    province { CoachFactoryHelpers.province }
+    user_id           { rand(9999999) }
+    full_name         { CoachFactoryHelpers.name }
+    address_1         { CoachFactoryHelpers.street_address }
+    address_2         { CoachFactoryHelpers.secondary_address }
+    city              { CoachFactoryHelpers.city }
+    province          { CoachFactoryHelpers.province }
+    postal_code       { CoachFactoryHelpers.postal_code }
+    country           { CoachFactoryHelpers.country }
+    business_name     { FFaker::Company.name }
+    business_phone    { CoachFactoryHelpers.phone_number }
+    mobile_phone      { CoachFactoryHelpers.phone_number }
+    email             { FFaker::Internet.email }
+    specialty         { FFaker::Skill.specialty }
+    level_1           { [0, 1].sample }
+    level_2           { level_1 == 1 ? [0, 1].sample : 0 }
+    procoach_status   { [0, 1].sample }
+    show_in_directory { [0, 1].sample }
+    url               { FFaker::Internet.http_url }
+    url_last_checked  { FFaker::Time.between(2.weeks.ago, 1.minute.ago) }
+    url_last_status   { [0, 1].sample }
+    source            { 'es' }
+
+    trait :johnny_coach do
+      user_id           { 9999999 }
+      full_name         { 'Johnny Coach' }
+      address_1         { '1 First St.' }
+      address_2         { 'Unit 1' }
+      city              { 'The Capital' }
+      province          { 'Main Province' }
+      postal_code       { '1234-567' }
+      country           { 'Republic of Johnnystan' }
+      business_name     { "Johnny's Fitness" }
+      business_phone    { '987 654-3210' }
+      mobile_phone      { '987 654-3210' }
+      email             { 'johnny@johnnysfitness.com' }
+      specialty         { 'Fast body recomposition' }
+      level_1           { 1 }
+      level_2           { 1 }
+      procoach_status   { 1 }
+      show_in_directory { 1 }
+      url               { 'https://johnnysfitness.com' }
+      url_last_checked  { '2020-02-17 11:56:39 -0500' }
+      url_last_status   { 1 }
+      source            { 'es' }
+    end
   end
 end
 

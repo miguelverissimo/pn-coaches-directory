@@ -4,13 +4,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.0'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'hiredis'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma'
 gem 'rack-attack'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 gem 'redis'
-gem 'hiredis'
 
 group :production do
   gem 'passenger', '>= 5.3.2', require: 'phusion_passenger/rack_handler'
@@ -23,6 +22,7 @@ group :development, :test do
   gem 'ffaker'
   gem 'pry'
   gem 'pry-byebug'
+  gem 'puma'
   gem 'rspec-rails'
 end
 
@@ -34,6 +34,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'mutant-rspec'
   gem 'rubocop'
   gem 'rubocop-rails'
 end

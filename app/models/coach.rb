@@ -30,7 +30,7 @@ class Coach < ApplicationRecord
   self.table_name = 'wp_fitpro_directory'
 
   # default to query only the coaches to be shown in the directory
-  default_scope { where(show_in_directory: true) }
+  default_scope { where(show_in_directory: 1) }
 
   # remap attributes to follow rails conventions
   alias_attribute :address_1, :address1
@@ -41,17 +41,9 @@ class Coach < ApplicationRecord
   alias_attribute :mobile_phone, :mobilephone
   alias_attribute :postal_code, :postalcode
   alias_attribute :user_id, :userid
-
-  after_initialize do
-    {
-      level_1: :level1_status,
-      level_2: :level2_status,
-      pro_coach: :procoach_status,
-      show_in_directory: :show_in_directory
-    }.each do |method_name, column|
-      define_boolean_aliases(method_name, column)
-    end
-  end
+  alias_attribute :level_1, :level1_status
+  alias_attribute :level_2, :level2_status
+  alias_attribute :pro_coach, :procoach_status
 
   scope :filter_by_country, ->(country) { where country: country }
   scope :filter_by_city, ->(city) { where city: city }
@@ -62,23 +54,5 @@ class Coach < ApplicationRecord
     [address_1, address_2, city, "#{province} #{postal_code}", country]
       .reject(&:empty?)
       .join(', ')
-  end
-
-  private
-
-  def define_boolean_aliases(method_name, column)
-    (class << self; self; end).instance_eval do
-      define_method method_name do
-        self[column] == 1
-      end
-
-      define_method "#{method_name}=" do |val|
-        self[column] = bool_to_int(val)
-      end
-    end
-  end
-
-  def bool_to_int(val)
-    val ? 1 : 0
   end
 end
