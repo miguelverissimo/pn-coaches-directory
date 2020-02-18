@@ -5,6 +5,7 @@ This is a sample rails 6 API application that features a few unusual use cases:
 - Connecting to an preexisting database and adapting to the existing models
 - Tapping into arel for case-insensitive querying without custom SQL
 - Caching of query results on the cache store
+- Simple token authorization
 
 # Requirements
 

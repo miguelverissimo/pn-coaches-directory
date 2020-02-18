@@ -1,3 +1,31 @@
+# == Schema Information
+#
+# Table name: wp_fitpro_directory
+#
+#  id                :integer          not null, primary key
+#  address1          :string(255)
+#  address2          :string(255)
+#  businessname      :string(255)
+#  businessphone     :string(255)
+#  city              :string(255)
+#  country           :string(255)
+#  email             :string(255)
+#  fullname          :string(255)
+#  level1_status     :integer          default(0)
+#  level2_status     :integer          default(0)
+#  mobilephone       :string(255)
+#  postalcode        :string(255)
+#  procoach_status   :integer          default(0)
+#  province          :string(255)
+#  show_in_directory :integer          default(0)
+#  source            :string(80)
+#  specialty         :text
+#  url               :string(255)
+#  url_last_checked  :integer
+#  url_last_status   :integer
+#  userid            :integer
+#
+
 require 'rails_helper'
 
 RSpec.describe Coach, type: :model do
