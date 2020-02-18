@@ -2,8 +2,8 @@
 lock '~> 3.12.0'
 
 set :chruby_ruby, 'ruby-2.7.0'
-set :application, 'pn-coaches-directory'
-set :repo_url, 'git@github.com:miguelverissimo/pn-coaches-directory.git'
+set :application, 'coaches-directory'
+set :repo_url, 'git@github.com:miguelverissimo/coaches-directory.git'
 set :rbenv_type, :user
 set :rbenv_ruby, '2.7.0'
 
@@ -11,7 +11,7 @@ set :rbenv_ruby, '2.7.0'
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/home/deploy/pn_coaches_directory'
+set :deploy_to, '/home/deploy/coaches_directory'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

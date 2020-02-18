@@ -7,4 +7,14 @@ namespace :data do
 
     FactoryBot.create_list(:coach, number)
   end
+
+  desc "Create whitelisted client"
+  task create_whitelisted_client: :environment do
+    name = ENV.fetch('name', 'Unspecified Client')
+
+    client = FactoryBot.create(:whitelisted_client, name: name)
+
+    puts "Created whitelisted client '#{name}' with token '#{client.token}'"
+    puts "Add 'Authorization: Token #{client.token}' to your requests"
+  end
 end

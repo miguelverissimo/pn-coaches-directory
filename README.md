@@ -17,6 +17,7 @@ This is a sample rails 6 API application that features a few unusual use cases:
 - clone this repo
 - `bundle install`
 - `rails data:hydrate` optionally with the number of records to add: `rails data:hydrate number=5000`
+- `rails data:create_whitelisted_client` optionally with a describer for your whitelisted client `rails data:create_whitelisted_client name="Authorized frontend"`
 
 # Running
 
@@ -29,6 +30,7 @@ Get all coaches in Seattle, United States
 curl --request GET \
   --url 'http://localhost:3000/api/v1/coach_directory?country=United%20States&city=Seattle' \
   --header 'Accept: application/json,*/*'
+  --header 'Authorization: Token 7c8avdMvv0IaQ03zTkNd0Oa' \
 ```
 
 Get all coaches in Germany
@@ -36,6 +38,7 @@ Get all coaches in Germany
 curl --request GET \
   --url 'http://localhost:3000/api/v1/coach_directory?country=Germany' \
   --header 'Accept: application/json,*/*'
+  --header 'Authorization: Token 7c8avdMvv0IaQ03zTkNd0Oa' \
 ```
 
 Get all coaches in the 90210 zip (postal code)
@@ -43,6 +46,7 @@ Get all coaches in the 90210 zip (postal code)
 curl --request GET \
   --url 'http://localhost:3000/api/v1/coach_directory?postal_code=90210' \
   --header 'Accept: application/json,*/*'
+  --header 'Authorization: Token 7c8avdMvv0IaQ03zTkNd0Oa' \
 ```
 
 Get all coaches where their name starts with 'Joa'
@@ -50,11 +54,12 @@ Get all coaches where their name starts with 'Joa'
 curl --request GET \
   --url 'http://localhost:3000/api/v1/coach_directory?name_starts_with=Joa' \
   --header 'Accept: application/json,*/*'
+  --header 'Authorization: Token 7c8avdMvv0IaQ03zTkNd0Oa' \
 ```
 
 # License
 
-pn coaches directory - an example Rails 6 API app
+coaches directory - an example Rails 6 API app
 Copyright © 2020 Miguel Verissimo
 
 Permission is hereby granted, free of charge, to any person obtaining
