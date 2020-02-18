@@ -1,0 +1,7 @@
+local_development:
+  name: Local Development
+  domain: http://example.com
+  token: example_local_token
+  granted_on: <%= Time.now %>
+  granted_by: Migration
+  notes: Example whitelist fixture

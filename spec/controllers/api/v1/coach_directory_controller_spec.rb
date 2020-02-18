@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::CoachDirectoryController, type: :controller do
   before do
+    @token = FactoryBot.create(:whitelisted_client).token
+
     FactoryBot.create_list(:coach, 10, show_in_directory: false)
     FactoryBot.create_list(:coach, 10, show_in_directory: true)
     FactoryBot.create(:coach, full_name: 'Ttester Number 1', show_in_directory: true)
@@ -33,7 +35,25 @@ RSpec.describe Api::V1::CoachDirectoryController, type: :controller do
     before { Rails.cache.clear }
 
     def make_request(params = {})
+      request.headers.merge!('Authorization' => "Token token=\"#{@token}\"")
+      get_without_auth(params)
+    end
+
+    def get_without_auth(params = {})
       get :index, params: params.merge(format: :json)
+    end
+
+    context 'without authorization' do
+      it 'rejects calls without the authorization header' do
+        get_without_auth
+        expect(response.status).to eq 401
+      end
+
+      it 'rejects calls with wrong credentials' do
+        @token = 'false token'
+        make_request
+        expect(response.status).to eq 401
+      end
     end
 
     context 'json response' do

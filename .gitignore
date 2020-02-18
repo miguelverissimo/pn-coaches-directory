@@ -28,4 +28,9 @@
 config/database.yml
 config/secrets.yml
 
+# Ignore non-example migration fixtures
+/db/hydration_fixtures/*.yml
+!/db/hydration_fixtures/*.example.yml
+
+# ignore our local environment variables
 .envrc
