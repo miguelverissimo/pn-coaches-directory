@@ -80,6 +80,9 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
+    capistrano-asdf (0.0.3)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     capistrano-bundler (1.6.0)
       capistrano (~> 3.1)
     capistrano-passenger (0.2.0)
@@ -89,9 +92,6 @@ GEM
     capistrano-rails (1.4.0)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capistrano-rbenv (2.1.6)
-      capistrano (~> 3.1)
-      sshkit (~> 1.3)
     coderay (1.1.2)
     concord (0.1.5)
       adamantium (~> 0.2.0)
@@ -285,10 +285,10 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capistrano
+  capistrano-asdf
   capistrano-passenger
   capistrano-puma
   capistrano-rails
-  capistrano-rbenv
   factory_bot_rails
   ffaker
   hiredis

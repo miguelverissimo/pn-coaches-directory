@@ -32,7 +32,8 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-puma', require: false
   gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
+  # gem 'capistrano-rbenv'
+  gem 'capistrano-asdf'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'mutant-rspec'
   gem 'rubocop'
